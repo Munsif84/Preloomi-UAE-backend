@@ -1,6 +1,6 @@
 import os
 import sys
-# DON'T CHANGE THIS !!!
+# DON\"T CHANGE THIS !!!
 sys.path.insert(0, os.path.dirname(os.path.dirname(__file__)))
 
 from flask import Flask, send_from_directory
@@ -18,6 +18,7 @@ from src.middleware.monitoring import init_monitoring
 from src.middleware.caching import init_caching
 from src.config.security_config import get_security_config
 
+# Initialize Flask app
 app = Flask(__name__, static_folder=os.path.join(os.path.dirname(__file__), 'static'))
 
 # Get security configuration
@@ -65,7 +66,7 @@ init_caching(app)
 with app.app_context():
     db.create_all()
     
-    # Create default categories if they don't exist
+    # Create default categories if they don\'t exist
     from src.models.item import Category
     default_categories = [
         {'name': 'Women', 'sort_order': 1},
@@ -145,8 +146,8 @@ def health_check():
         'version': '1.0.0'
     }, 200
 
-if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5000, debug=True)
+# This ensures the 'app' object is directly available at the module level for Gunicorn
+# The 'if __name__ == "__main__":' block is removed as Gunicorn handles the application startup
 
 
 
