@@ -25,7 +25,7 @@ SecurityConfig = get_security_config()
 
 # Configuration
 app.config['SECRET_KEY'] = SecurityConfig.JWT_SECRET_KEY
-app.config['SQLALCHEMY_DATABASE_URI'] = f"sqlite:///{os.path.join(os.path.dirname(__file__), 'database', 'app.db')}"
+app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('DATABASE_URL') # Use DATABASE_URL from environment variable
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['JWT_SECRET_KEY'] = SecurityConfig.JWT_SECRET_KEY
 app.config['JWT_ACCESS_TOKEN_EXPIRES'] = SecurityConfig.JWT_ACCESS_TOKEN_EXPIRES
@@ -147,4 +147,6 @@ def health_check():
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000, debug=True)
+
+
 
