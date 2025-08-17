@@ -10,5 +10,6 @@ stripe==6.0.0
 redis==4.6.0
 gunicorn
 importlib-resources
+bleach
 
 
