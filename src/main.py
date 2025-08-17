@@ -18,8 +18,10 @@ from src.middleware.monitoring import init_monitoring
 from src.middleware.caching import init_caching
 from src.config.security_config import get_security_config
 
+print("DEBUG: Before Flask app initialization")
 # Initialize Flask app
 app = Flask(__name__, static_folder=os.path.join(os.path.dirname(__file__), 'static'))
+print("DEBUG: After Flask app initialization")
 
 # Get security configuration
 SecurityConfig = get_security_config()
@@ -148,6 +150,5 @@ def health_check():
 
 # This ensures the 'app' object is directly available at the module level for Gunicorn
 # The 'if __name__ == "__main__":' block is removed as Gunicorn handles the application startup
-
 
 
