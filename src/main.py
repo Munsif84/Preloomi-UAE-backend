@@ -1,6 +1,6 @@
 import os
 import sys
-# DON\"T CHANGE THIS !!!
+# DON\'T CHANGE THIS !!!
 sys.path.insert(0, os.path.dirname(os.path.dirname(__file__)))
 
 from flask import Flask, send_from_directory
@@ -18,10 +18,8 @@ from src.middleware.monitoring import init_monitoring
 from src.middleware.caching import init_caching
 from src.config.security_config import get_security_config
 
-print("DEBUG: Before Flask app initialization")
 # Initialize Flask app
 app = Flask(__name__, static_folder=os.path.join(os.path.dirname(__file__), 'static'))
-print("DEBUG: After Flask app initialization")
 
 # Get security configuration
 SecurityConfig = get_security_config()
