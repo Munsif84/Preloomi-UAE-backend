@@ -1,0 +1,45 @@
+2025-08-16 10:42:48,477 - src.middleware.caching - WARNING - Redis not available, using in-memory cache: Error 111 connecting to localhost:6379. Connection refused.
+2025-08-16 10:42:48,516 - src.middleware.caching - INFO - Starting cache warming...
+2025-08-16 10:42:48,516 - src.middleware.caching - INFO - Cache warming completed
+2025-08-16 10:42:48,574 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://169.254.0.21:5000
+2025-08-16 10:42:48,575 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-08-16 10:42:48,575 - werkzeug - INFO -  * Restarting with stat
+2025-08-16 10:42:49,603 - src.middleware.caching - WARNING - Redis not available, using in-memory cache: Error 111 connecting to localhost:6379. Connection refused.
+2025-08-16 10:42:49,629 - src.middleware.caching - INFO - Starting cache warming...
+2025-08-16 10:42:49,629 - src.middleware.caching - INFO - Cache warming completed
+2025-08-16 10:42:49,684 - werkzeug - WARNING -  * Debugger is active!
+2025-08-16 10:42:49,684 - werkzeug - INFO -  * Debugger PIN: 586-610-120
+2025-08-16 10:45:37,028 - src.middleware.caching - WARNING - Redis not available, using in-memory cache: Error 111 connecting to localhost:6379. Connection refused.
+2025-08-16 10:45:37,054 - src.middleware.caching - INFO - Starting cache warming...
+2025-08-16 10:45:37,054 - src.middleware.caching - INFO - Cache warming completed
+2025-08-16 10:45:37,110 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://169.254.0.21:5000
+2025-08-16 10:45:37,110 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-08-16 10:45:37,111 - werkzeug - INFO -  * Restarting with stat
+2025-08-16 10:45:38,150 - src.middleware.caching - WARNING - Redis not available, using in-memory cache: Error 111 connecting to localhost:6379. Connection refused.
+2025-08-16 10:45:38,176 - src.middleware.caching - INFO - Starting cache warming...
+2025-08-16 10:45:38,176 - src.middleware.caching - INFO - Cache warming completed
+2025-08-16 10:45:38,229 - werkzeug - WARNING -  * Debugger is active!
+2025-08-16 10:45:38,229 - werkzeug - INFO -  * Debugger PIN: 601-705-414
+2025-08-16 11:06:47,192 - src.middleware.caching - WARNING - Redis not available, using in-memory cache: Error 111 connecting to localhost:6379. Connection refused.
+2025-08-16 11:06:47,228 - src.middleware.caching - INFO - Starting cache warming...
+2025-08-16 11:06:47,228 - src.middleware.caching - INFO - Cache warming completed
+2025-08-16 11:07:05,236 - src.middleware.caching - WARNING - Redis not available, using in-memory cache: Error 111 connecting to localhost:6379. Connection refused.
+2025-08-16 11:07:05,262 - src.middleware.caching - INFO - Starting cache warming...
+2025-08-16 11:07:05,262 - src.middleware.caching - INFO - Cache warming completed
+2025-08-16 11:07:05,317 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://169.254.0.21:5000
+2025-08-16 11:07:05,317 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-08-16 11:07:05,317 - werkzeug - INFO -  * Restarting with stat
+2025-08-16 11:07:06,405 - src.middleware.caching - WARNING - Redis not available, using in-memory cache: Error 111 connecting to localhost:6379. Connection refused.
+2025-08-16 11:07:06,433 - src.middleware.caching - INFO - Starting cache warming...
+2025-08-16 11:07:06,433 - src.middleware.caching - INFO - Cache warming completed
+2025-08-16 11:07:06,489 - werkzeug - WARNING -  * Debugger is active!
+2025-08-16 11:07:06,489 - werkzeug - INFO -  * Debugger PIN: 142-770-807
