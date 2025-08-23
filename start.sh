@@ -2,20 +2,85 @@
 
 set -e # Exit immediately if a command exits with a non-zero status.
 
-echo "Running database migrations and creating tables..."
-python3 -c "from src.main import app, db; with app.app_context(): db.create_all()" 2>&1
-echo "Database tables created."
+echo "=== Starting application initialization ==="
 
-echo "Creating default categories if they don't exist..."
-python3 -c "from src.main import app, db; from src.models.item import Category; with app.app_context(): default_categories = [{\'name\': \'Women\', \'sort_order\': 1}, {\'name\': \'Men\', \'sort_order\': 2}, {\'name\': \'Kids\', \'sort_order\': 3}, {\'name\': \'Home\', \'sort_order\': 4}, {\'name\': \'Electronics\', \'sort_order\': 5}, {\'name\': \'Sports\', \'sort_order\': 6}]; for cat_data in default_categories: if not Category.query.filter_by(name=cat_data[\'name\']).first(): category = Category(name=cat_data[\'name\'], sort_order=cat_data[\'sort_order\']); db.session.add(category); db.session.commit()}" 2>&1
-echo "Default categories created."
+# Test database connection first
+echo "Testing database connection..."
+python3 -c "
+import os
+import sys
+from sqlalchemy import create_engine, text
 
-echo "Creating default UAE shipping zones..."
-python3 -c "from src.main import app, db; from src.models.user import UAEShippingZone; with app.app_context(): default_zones = [{\'emirate\': \'Dubai\', \'city\': \'Dubai\', \'area\': \'Downtown\', \'delivery_zone\': \'Zone 1\', \'shipping_cost_zone1\': 15.00}, {\'emirate\': \'Dubai\', \'city\': \'Dubai\', \'area\': \'Marina\', \'delivery_zone\': \'Zone 1\', \'shipping_cost_zone1\': 15.00}, {\'emirate\': \'Dubai\', \'city\': \'Dubai\', \'area\': \'JLT\', \'delivery_zone\': \'Zone 1\', \'shipping_cost_zone1\': 15.00}, {\'emirate\': \'Dubai\', \'city\': \'Dubai\', \'area\': \'Business Bay\', \'delivery_zone\': \'Zone 1\', \'shipping_cost_zone1\': 15.00}, {\'emirate\': \'Dubai\', \'city\': \'Dubai\', \'area\': \'DIFC\', \'delivery_zone\': \'Zone 1\', \'shipping_cost_zone1\': 15.00}, {\'emirate\': \'Abu Dhabi\', \'city\': \'Abu Dhabi\', \'area\': \'Corniche\', \'delivery_zone\': \'Zone 2\', \'shipping_cost_zone2\': 20.00}, {\'emirate\': \'Abu Dhabi\', \'city\': \'Abu Dhabi\', \'area\': \'Khalifa City\', \'delivery_zone\': \'Zone 2\', \'shipping_cost_zone2\': 20.00}, {\'emirate\': \'Sharjah\', \'city\': \'Sharjah\', \'area\': \'City Center\', \'delivery_zone\': \'Zone 2\', \'shipping_cost_zone2\': 20.00}, {\'emirate\': \'Ajman\', \'city\': \'Ajman\', \'area\': \'City Center\', \'delivery_zone\': \'Zone 3\', \'shipping_cost_zone3\': 25.00}, {\'emirate\': \'Ras Al Khaimah\', \'city\': \'Ras Al Khaimah\', \'area\': \'City Center\', \'delivery_zone\': \'Zone 3\', \'shipping_cost_zone3\': 25.00}, {\'emirate\': \'Fujairah\', \'city\': \'Fujairah\', \'area\': \'City Center\', \'delivery_zone\': \'Zone 3\', \'shipping_cost_zone3\': 25.00}, {\'emirate\': \'Umm Al Quwain\', \'city\': \'Umm Al Quwain\', \'area\': \'City Center\', \'delivery_zone\': \'Zone 3\', \'shipping_cost_zone3\': 25.00}]; for zone_data in default_zones: if not UAEShippingZone.query.filter_by(emirate=zone_data[\'emirate\'], city=zone_data[\'city\'], area=zone_data[\'area\']).first(): zone = UAEShippingZone(**zone_data); db.session.add(zone); db.session.commit()}" 2>&1
-echo "Default UAE shipping zones created."
+try:
+    database_url = os.environ.get('DATABASE_URL')
+    if not database_url:
+        print('ERROR: DATABASE_URL environment variable not set')
+        sys.exit(1)
+    
+    print(f'Database URL: {database_url[:50]}...')
+    engine = create_engine(database_url)
+    
+    with engine.connect() as conn:
+        result = conn.execute(text('SELECT 1'))
+        print('Database connection successful!')
+        
+except Exception as e:
+    print(f'Database connection failed: {str(e)}')
+    sys.exit(1)
+"
+
+# Create database tables
+echo "Creating database tables..."
+python3 -c "
+import sys
+try:
+    from src.main import app, db
+    with app.app_context():
+        db.create_all()
+        print('Database tables created successfully!')
+except Exception as e:
+    print(f'Failed to create database tables: {str(e)}')
+    import traceback
+    traceback.print_exc()
+    sys.exit(1)
+"
+
+# Create default categories
+echo "Creating default categories..."
+python3 -c "
+import sys
+try:
+    from src.main import app, db
+    from src.models.item import Category
+    
+    with app.app_context():
+        default_categories = [
+            {'name': 'Women', 'sort_order': 1},
+            {'name': 'Men', 'sort_order': 2},
+            {'name': 'Kids', 'sort_order': 3},
+            {'name': 'Home', 'sort_order': 4},
+            {'name': 'Electronics', 'sort_order': 5},
+            {'name': 'Sports', 'sort_order': 6}
+        ]
+        
+        for cat_data in default_categories:
+            if not Category.query.filter_by(name=cat_data['name']).first():
+                category = Category(name=cat_data['name'], sort_order=cat_data['sort_order'])
+                db.session.add(category)
+        
+        db.session.commit()
+        print('Default categories created successfully!')
+        
+except Exception as e:
+    print(f'Failed to create default categories: {str(e)}')
+    import traceback
+    traceback.print_exc()
+    sys.exit(1)
+"
+
+echo "=== Application initialization complete ==="
 
 # Start Gunicorn
-echo "Starting Gunicorn..."
-gunicorn src.main:app --bind 0.0.0.0:$PORT --workers 4 2>&1
-echo "Gunicorn started."
+echo "Starting Gunicorn server..."
+exec gunicorn src.main:app --bind 0.0.0.0:$PORT --workers 4
 
